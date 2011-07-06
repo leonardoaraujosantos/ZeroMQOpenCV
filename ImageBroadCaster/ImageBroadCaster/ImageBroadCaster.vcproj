@@ -40,6 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="&quot;$(BOOST_ROOT)&quot;;&quot;$(OPENCV_ROOT)\build\include&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -57,6 +58,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="opencv_core230d.lib opencv_highgui230d.lib opencv_imgproc230d.lib opencv_features2d230d.lib opencv_legacy230d.lib opencv_video230d.lib"
+				AdditionalLibraryDirectories="&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;$(OPENCV_ROOT)\build\x86\vc9\lib&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -162,6 +165,14 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\GenericImage.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ImageFactory.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -171,6 +182,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\GenericImage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ImageFactory.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
