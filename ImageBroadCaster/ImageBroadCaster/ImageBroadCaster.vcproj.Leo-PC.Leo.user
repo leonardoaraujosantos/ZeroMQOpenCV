@@ -11,7 +11,7 @@
 			<DebugSettings
 				Command="$(TargetPath)"
 				WorkingDirectory=""
-				CommandArguments="-d C:\StreamServerTCP\Debug -g 0 -q 1"
+				CommandArguments="-d ..\..\Images -g 0 -q 1"
 				Attach="false"
 				DebuggerType="3"
 				Remote="1"

@@ -8,6 +8,10 @@
 
 #include  <boost/lexical_cast.hpp>
 
+// OpenCv Headers
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
 int main()
 {
 	zmq::context_t context (1);
@@ -22,6 +26,9 @@ int main()
 	
 	// Subscribe to all incomming messages
 	subscriber.setsockopt(ZMQ_SUBSCRIBE, "", 0);
+
+	// Create OpenCV image
+	cvNamedWindow("ROI",1);
 
 	while(true)
 	{
@@ -54,9 +61,19 @@ int main()
 			<< "image.size=" << imageHeader.getSize() << std::endl
 			<< "END-----------------------------------------------------" << std::endl;
 		
+		// Pointer to the begginning of the image...
+		char *p_MessageBegImage = static_cast<char*>(update.data());
+		p_MessageBegImage += (6 + imageHeaderSize + 1);
 
-		//std::cout << static_cast<char*>(update.data()) << std::endl;
-		/*std::istringstream iss(static_cast<char*>(update.data()));
-        iss >> zipcode >> temperature >> relhumidity ;*/
+		// Create an OpenCV image...
+		IplImage *imReceivedImage;
+		imReceivedImage = cvCreateImage(cvSize(imageHeader.getWidth(),imageHeader.getHeight()),IPL_DEPTH_8U,imageHeader.getChannels());  //164, 123
+		imReceivedImage->widthStep = imageHeader.getStep();
+		imReceivedImage->nChannels = imageHeader.getChannels();
+		imReceivedImage->imageData = (char*)p_MessageBegImage;
+
+		cvShowImage("ROI",imReceivedImage); 
+		char c	= cvWaitKey(1);	
+				
 	}
 }

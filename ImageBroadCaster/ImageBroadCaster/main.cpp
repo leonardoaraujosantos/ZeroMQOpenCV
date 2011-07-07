@@ -85,13 +85,10 @@ int main(int ac, char* av[])
 			boost::format fmter("%05d ");
 			fmter % image.getHeader().length();
 			std::string headerSize = fmter.str();
-			std::string completeHeader = headerSize + image.getHeader();
-			//std::string completeHeader = std::string("00001 ") + std::string("header!");
+			std::string completeHeader = headerSize + image.getHeader();			
 
-			// Create a message
-			//zmq::message_t message(completeHeader.length() /*+ image.getSize()*/);
-			zmq::message_t message(completeHeader.length() + image.getSize() + 1);
-			//zmq::message_t message(image.getSize());
+			// Create a message			
+			zmq::message_t message(completeHeader.length() + image.getSize() + 1);			
 
 			// Copy image header
 			memcpy((char*) message.data(), completeHeader.c_str(), completeHeader.length());	
