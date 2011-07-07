@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(BOOST_ROOT)&quot;;&quot;$(OPENCV_ROOT)\build\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(BOOST_ROOT)&quot;;&quot;$(OPENCV_ROOT)\build\include&quot;;&quot;$(ZEROMQ_ROOT)\include&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -58,8 +58,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opencv_core230d.lib opencv_highgui230d.lib opencv_imgproc230d.lib opencv_features2d230d.lib opencv_legacy230d.lib opencv_video230d.lib"
-				AdditionalLibraryDirectories="&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;$(OPENCV_ROOT)\build\x86\vc9\lib&quot;"
+				AdditionalDependencies="opencv_core230d.lib opencv_highgui230d.lib opencv_imgproc230d.lib opencv_features2d230d.lib opencv_legacy230d.lib opencv_video230d.lib libzmq.lib"
+				AdditionalLibraryDirectories="&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;$(OPENCV_ROOT)\build\x86\vc9\lib&quot;;&quot;$(ZEROMQ_ROOT)\lib&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
