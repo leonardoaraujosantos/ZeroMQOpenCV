@@ -37,7 +37,7 @@ private:
         ar & height;
         ar & width_step;
 		ar & size;
-		ar & nchannels;		
+		ar & nchannels;
 		//ar & ImmBuffer;
     }
 
