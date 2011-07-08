@@ -30,6 +30,7 @@ int main()
 	// Create OpenCV image
 	cvNamedWindow("ROI",1);
 
+	std::cout << "Ready to receive" << std::endl;
 	while(true)
 	{
 		zmq::message_t update;
@@ -50,6 +51,7 @@ int main()
 		p_MessageHeader += 6;
 		imageHeaderStr = std::string(p_MessageHeader, imageHeaderSize);
 
+		// Parse serialized object
 		std::istringstream inStream(imageHeaderStr);
 		boost::archive::text_iarchive inArchive(inStream);
 		inArchive >> imageHeader;
@@ -64,18 +66,20 @@ int main()
 		// Pointer to the begginning of the image...
 		char *p_MessageBegImage = static_cast<char*>(update.data());
 		p_MessageBegImage += (6 + imageHeaderSize + 1);
+		imageHeader.setImage(p_MessageBegImage, imageHeader.getSize());
 
+		
 		// Create an OpenCV image...
 		IplImage *imReceivedImage;
 		imReceivedImage = cvCreateImage(cvSize(imageHeader.getWidth(),imageHeader.getHeight()),IPL_DEPTH_8U,imageHeader.getChannels());  //164, 123
 		imReceivedImage->widthStep = imageHeader.getStep();
 		imReceivedImage->nChannels = imageHeader.getChannels();
-		imReceivedImage->imageData = (char*)p_MessageBegImage;
+		imReceivedImage->imageData = imageHeader.getImageBuffer();
 
 		cvShowImage("ROI",imReceivedImage); 
 		char c	= cvWaitKey(1);	
 
-		//cvReleaseImage(&imReceivedImage);
+		cvReleaseImage(&imReceivedImage);
 				
 	}
 }
