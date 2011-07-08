@@ -74,6 +74,8 @@ int main()
 
 		cvShowImage("ROI",imReceivedImage); 
 		char c	= cvWaitKey(1);	
+
+		//cvReleaseImage(&imReceivedImage);
 				
 	}
 }

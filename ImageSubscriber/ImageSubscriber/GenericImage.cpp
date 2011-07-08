@@ -2,6 +2,7 @@
 
 GenericImage::GenericImage(void)
 {
+	ImmBuffer = NULL;
 }
 
 GenericImage::GenericImage(int w, int h, int ws,int channels, char *image_data) : width(w), height(h), width_step(ws), nchannels(channels)
@@ -11,15 +12,18 @@ GenericImage::GenericImage(int w, int h, int ws,int channels, char *image_data) 
 	// Fill image vector buffer with OpenCv image data
 	ImmBuffer = new char[size];
 	for (int count = 0; count < size; count++)
-	{
-		//ImmBuffer.push_back(image_data[count]);
+	{		
 		ImmBuffer[count] = image_data[count];
 	}
 }
 
 GenericImage::~GenericImage(void)
 {
-	//delete [] ImmBuffer; 
+	//delete [] ImmBuffer;
+	if (ImmBuffer)
+	{
+		delete [] ImmBuffer;
+	}
 }
 
 char * GenericImage::getImageBuffer()
@@ -36,13 +40,27 @@ void GenericImage::setImage(cv::Mat image)
 	width_step = image.step;
 	size = width_step * height;
 
-	// Fill image vector buffer with OpenCv image data	
-	//ImmBuffer.clear();
+	// Fill image vector buffer with OpenCv image data		
 	ImmBuffer = new char[size];
 	for (int count = 0; count < size; count++)
 	{
-		ImmBuffer[count] = image.data[count];
-		//ImmBuffer.push_back(image.data[count]);		
+		ImmBuffer[count] = image.data[count];			
 	}
 
+}
+
+void GenericImage::setImage(char *buffer, int size)
+{
+	if (!ImmBuffer)
+	{
+		ImmBuffer = new char[size];
+		for (int count = 0; count < size; count++)
+		{
+			ImmBuffer[count] = buffer[count];			
+		}
+	}
+	else
+	{
+		throw std::exception("GenericImage::setImage (Image already set)");
+	}
 }

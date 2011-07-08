@@ -28,6 +28,7 @@ public:
 	std::string getHeader() { return header; };
 	void setHeader(std::string p_header) {header = p_header;};
 	void setImage(cv::Mat image);
+	void setImage(char *buffer, int size);
 private:
 	friend class boost::serialization::access;
 	template<class Archive>

@@ -82,7 +82,7 @@ int main(int ac, char* av[])
 			imgGather.prepareImage(image);						
 			
 			// Create message content
-			boost::format fmter("%05d ");
+			boost::format fmter("%05d ");									// Format string 5 = 000005
 			fmter % image.getHeader().length();
 			std::string headerSize = fmter.str();
 			std::string completeHeader = headerSize + image.getHeader();			
@@ -99,9 +99,7 @@ int main(int ac, char* av[])
 			memcpy((char*)postHeader,image.getImageBuffer(), image.getSize()); 
 			
 			// Broadcast this message
-			publisher.send(message);
-
-			Sleep(1000);
+			publisher.send(message);			
 		}
 	}
 	catch(std::exception &e)
